@@ -1,0 +1,304 @@
+﻿.nopadlf{
+    padding-left:0px;
+    padding-right:0px;
+}
+
+
+@media (max-width: 600px) {
+    /*Heading*/
+
+  ._sunimg{
+      width:90px;
+  }
+  .cogText{
+      font-size:0.9em;
+  }
+
+  /* Nav bar*/
+  #nav_l,#nav_b,#nav_c,#nav_f{
+      display:none;
+  }
+}
+
+
+
+._btn{
+    padding:15px 20px;
+}
+
+._detailstxt{
+    font-size:1.6em
+}
+
+
+/* common */
+.dinline{
+    display: inline-block;
+}
+.dnone{
+    display: none;
+}
+
+.floatRight{
+    float:right;
+}
+
+._star{
+    height:30px;
+    width:30px;
+    border:1px solid lightgray;
+    border-radius:3px;
+    padding:5px 5px 4px 15px;
+}
+
+._starimg{
+    height:40px;
+    padding:5px;
+    border:1px solid lightgray;
+    border-radius:3px;
+}
+
+._imgd{
+    height:50px;
+    border:1px solid lightgray;
+    border-radius:3px;
+    padding:10px;
+}
+
+._details{
+    height:30px;
+    border:1px solid lightgray;
+    border-radius:3px;
+    padding:5px;
+}
+
+._prev{
+    font-size: 17px;
+    border: 1px solid #cccccc;
+    float: left!important;
+    border-radius:3px;
+    padding:10px;
+}
+
+.delimg{
+    height:25px;
+    padding:5px;
+    border:1px solid lightgray;
+    border-radius:3px;
+}
+
+/* Heading */
+.cogText{
+    display: inline-block;
+    font-weight: bolder;
+    padding-bottom: 0px;
+    font-size: 2em;
+    vertical-align: bottom;;
+}
+
+.three{
+    border:1px solid lightgray;
+    border-radius:3px;
+    padding:5px;
+    position:static !important;
+}
+
+.padleftn{
+    padding-left:0px;
+}
+
+
+/* Body - details*/
+._dbody{
+    background-color:#f5f5f5;
+    padding-left: 0px;
+}
+
+.nostyleul{
+    color: black;
+    text-decoration: none;
+}
+
+.noliststyle{
+    list-style:none;
+    padding:20px;
+    line-height:3em;
+    height:100%;
+    font-size:1.5em;
+}
+
+.item
+{
+    background: black;
+    font-weight: bolder;
+    color: white;
+    padding-left: 0px;
+}
+
+
+
+.limg{
+    width: 30px;
+    height: 30px;
+}
+
+
+/* Committee*/
+.smallbox{
+    width:50px;
+    height:50px;
+    border-radius:4px;
+    border:1px solid;
+}
+/*Left pan*/
+.panbody{
+    height:100%;
+    background-color:black;
+    display:inline-block;
+    color:white;
+    font-size:1.5em;
+}
+
+
+
+
+.padlright10{
+    padding-right:10px;
+}
+
+
+/* person details*/
+
+#detailssection{
+    padding-left:20px;
+    padding-bottom:20px;
+}
+
+.dhead{
+    font-size:2.5em;
+}
+
+.d_heading2{
+    margin-right: 0;
+    margin-left: 0;
+    background-color: #fff;
+    border-color: #ddd;
+    border-width: 1px;
+    border-radius: 4px 4px 0 0;
+    box-shadow: none;
+}
+
+.d_table{
+    padding:20px;
+}
+
+#l_bt1, #l_bt2, #l_bt3{
+    background-color:white
+}
+
+#d_table_header{
+    font-weight:bolder;
+    font-size:1.2em;
+}
+
+.pdf{
+    height:500px;
+    width:100% ;
+}
+/*record*/
+.imgleg{
+    width:40px;
+    height:40px;
+}
+
+.img200{
+    width:200px;
+}
+
+ul.list-group:after {
+  clear: both;
+  display: block;
+  content: "";
+}
+
+ul.list-group:hover {
+cursor: pointer;
+}
+
+.list-group-item {
+    float: left;
+}
+
+
+/*Common*/
+.details{
+   background-color:#e3e3e3;
+}
+.floatLeft{
+    float:left;
+}
+
+.floatRight{
+    float:right;
+}
+
+.disin{
+    display:inline-block;
+}
+
+.textdecotor{
+    text-decoration: none !important;
+    color:darkgray;
+}
+
+.textdecotor:hover{
+    text-decoration: none !important;
+    color:white;
+    cursor: pointer;
+}
+
+hr{
+    background-color:darkgray;
+    padding-right:10px;
+    height:1px;
+}
+
+.star{
+    background-color:#f7f7f7;
+    border-radius:3px;
+    overflow:auto;
+    padding:5px;
+    border:1px solid #f7f7f7;
+    display:inline-block;
+    float:left;
+    margin-left:0px;
+}
+
+.menu-btn div {
+	position: absolute;
+	left: 100%;
+	top: 64%;
+	line-height: 1.2;
+	font-size: 18px;
+	font-weight: 200;
+	vertical-align: middle;
+	z-index: 99;
+    display:inline-block;
+}
+ 
+.menu-btn span {
+	display: block;
+	width: 19px;
+	height: 4px;
+	margin: 4px 0;
+	background: rgb(0,0,0);
+	z-index: 99;
+}
+ 
+.responsive-menu{
+	display: none;
+}
+ 
+.expand {
+	display: block !important; 
+}

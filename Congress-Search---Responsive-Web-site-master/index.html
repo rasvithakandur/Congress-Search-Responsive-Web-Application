@@ -1,0 +1,277 @@
+﻿ <html ng-app="app">
+<head>
+    <title>Congress</title>
+	<meta charset="utf-8" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/X.Y.Z/angular-route.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+
+    <script type="text/javascript" src="scripts.js"></script>
+    <link href="Home.css" rel="stylesheet" />
+
+</head>
+<body>
+
+    <div class="container-fluid nopadlf">
+        <!--Heading-->
+        <div class="row">
+            <div class="col-xs-2 col-sm-2">
+                <div class="" onclick="hideNavBar()">
+                    <div class="menu-btn" id="menu-btn">
+                        <div class="three">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-2"></div>
+                <div class="col-xs-4 col-sm-10">
+                    <center>
+                        <span class="_sunimg"><a href="http://sunlightfoundation.com/" target="_blank"><img src="logo.png" alt="Sunlight Logo" /></a></span>
+                        <span class="cogText">Congress API</span>
+                    </center>
+                </div>
+            <div class="col-xs-4 col-sm-1"></div>
+          </div>
+
+        <!--Details-->
+        <div id="mytable" class="_dbody">
+            <div class="row">
+                <!--Left Navigation Bar-->
+                <div class="col-xs-2" id="_navbar">
+                    <div class="item">
+                        <ul class="noliststyle">
+                            <li><span id="l" onclick="GetLegData()" class="textdecotor"><i class="fa fa-user padlright10"></i><span id="nav_l">Legislators</span></span></li>
+                            <li><span id="b" onclick="GetBillData()" class="textdecotor"><i class="glyphicon glyphicon-file padlright10"></i><span id="nav_b">Bills</span></span></li>
+                            <li><span id="c" onclick="GetCommitteeData()" class="textdecotor"><i class="glyphicon glyphicon-log-in padlright10"></i><span id="nav_c">Committees</span></span></li>
+                            <li><span id="f" onclick="GetFav()" class="textdecotor"><i class="fa fa-star padlright10"></i><span id="nav_f">Favourites</span></span></li>
+                        </ul>
+                        
+                    </div>
+                </div>
+
+
+
+                <!--Content Details-->
+                <div class="col-xs-10" id="col_10">
+                    <div>
+                        <div>
+                            <span><h2 id="_mtitle"></h2></span>
+                            <hr />
+                        </div>
+                        <div class="panel panel-default" id="_ddetails">
+                            <div class="panel-heading">
+                                <div id="_mbuttons">
+                                     <!-- button -->
+                                    
+
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading well">
+                                        <div class="dinline"><b id="_dtitle"></b></div>
+                                        <div id="_search" class="dinline floatright">
+                                            <input id="b_search" type="text" class="form-control floatright dinline" ng-model="_bsearch" placeholder="Search" />
+                                            <input id="c_search" type="text" class="form-control floatright dinline" ng-model="_csearch" placeholder="Search" />
+                                            <input id="l_search" type="text" class="form-control floatright dinline" ng-model="_lsearch" placeholder="Search" onkeypress="FiletrByLastName()"/>
+                                            <select id="l_state" class="selectpicker">
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="panel-body">
+                                        <div>
+                                            <!--Legislators Data-->
+                                            <div class="table-responsive" id="_Ltable" ng-controller="ldata">
+                                                <table class="table table-hover">
+                                                    <thead>
+                                                        <tr><th>Party</th><th>Name</th><th>Chamber</th><th>Distric</th><th>State</th><th></th></tr>
+                                                    </thead>
+                                                    <tbody id="recordtable">
+                                                        <tr dir-paginate="person in json|itemsPerPage:10|filter:_lsearch" pagination-id="json">
+                                                            <td><img class="limg" src={{person.party=="R"?"r.png":"d.png"}} /></td>
+                                                            <td>{{person.last_name}}{{' '}}{{person.first_name}}</td>
+                                                            <td><img class="limg" src={{person.chamber=="house"?"h.png":"s.svg"}} />{{person.chamber=="house"?"House":"Senate"}}</td>
+                                                            <td>{{person.district == null?"N.A":"DISTRIC "+person.district}}</td>
+                                                            <td>{{GetState(person.state)}}</td>
+                                                            <td><input type="button" class="btn btn-primary" value="View Details" ng-click="GetLegDetails(person.last_name+person.first_name)"></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+
+                                                <center class="">
+                                                    <dir-pagination-controls max-size="10" boundary-links="true" direction-links="true" pagination-id="json"></dir-pagination-controls>
+                                                </center>
+                                            </div>
+
+                                            <!--Bill Data -->
+                                            <div class="table-responsive dnone" id="_Btable" ng-controller="bdata">
+                                                <table class="table table-hover">
+                                                    <thead>
+                                                        <tr><th>Bill ID</th><th>Bill Type</th><th>Title</th><th>Chamber</th><th>Introduced On</th><th>Sponsor</th><th></th></tr>
+                                                    </thead>
+                                                    <tbody id="recordtable">
+                                                        <tr dir-paginate="b in Bdata|itemsPerPage:10|filter:_bsearch" pagination-id="Bdata">
+                                                            <td>{{b.bill_id | uppercase}}</td>
+                                                            <td>{{b.bill_type | uppercase}}</td>
+                                                            <td>{{b.official_title}}</td>
+                                                            <td><img class="limg" src={{b.chamber=="house"?"h.png":"s.svg"}} />{{b.chamber=="house"?"House":"Senate"}}</td>
+                                                            <td>{{b.introduced_on}}</td>
+                                                            <td>{{b.sponsor.title}}{{'.'}}{{b.sponsor.last_name}}{{','}}{{b.sponsor.first_name}}</td>
+                                                            <td><input type="button" class="btn btn-primary" value="View Details" ng-click="GetBillDetails(b.bill_id)"></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+
+                                                <center class="">
+                                                    <dir-pagination-controls max-size="10" boundary-links="true" direction-links="true" pagination-id="Bdata"></dir-pagination-controls>
+                                                </center>
+                                            </div>
+
+                                            <!-- Committeess Data-->
+                                            <div class="table-responsive dnone" id="_Ctable" ng-controller="cdata">
+                                                <table class="table table-hover">
+                                                    <thead>
+                                                        <tr><th></th><th>Chamber</th><th>Committee ID</th><th>Name</th><th>Parent Committee</th><th>Contact</th><th>Office</th></tr>
+                                                    </thead>
+                                                    <tbody id="recordtable">
+                                                        <tr dir-paginate="c in Cdata|itemsPerPage:10|filter:_csearch" pagination-id="Cdata">
+                                                            <td><span class=""><a href=""><img class="_starimg" id="{{c.committee_id}}" src="B.png" ng-click="fav_c(c.committee_id)" /></a></span></td>
+                                                            <td><img class="limg" src={{c.chamber=="house"?"h.png":"s.svg"}} />{{c.chamber=="house"?"House":"Senate"}}</td>
+                                                            <td>{{c.committee_id==null?"NA":c.committee_id}}</td>
+                                                            <td>{{c.name==null?"NA":c.name}}</td>
+                                                            <td>{{c.parent_committee_id==null?"NA":c.parent_committee_id}}</td>
+                                                            <td>{{c.phone==null?"NA":c.phone}}</td>
+                                                            <td>{{c.office==null?"NA":c.office}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+
+                                                <center class="">
+                                                    <dir-pagination-controls max-size="10" boundary-links="true" direction-links="true" pagination-id="Cdata"></dir-pagination-controls>
+                                                </center>
+                                            </div>
+
+                                            <!--Favourites-->
+                                            <div class="table-responsive" id="f_data">
+                                                <div id="_favtable">
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Bill Details-->
+                        <div class="modal-content" id="b_details">
+                            <div class="modal-header">
+                                <button class="btn btn-secondary _btn" value="<" onclick="GetBillData()"><</button>
+                                <span class="dinline _detailstxt">Detail</span>
+                                <span class="floatright"><a href=""><img class="_imgd" id="_imgstar" src="B.png" onclick="fav_b(event)" /></a></span>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-xs-6" id="_bill_seg1">
+                                        <table class="table table-responsive">
+                                            <tbody>
+                                                <tr><td><b>Bill ID</b></td><td id="b_id"></td></tr> <!--<td rowspan="10" id="b_pdfviewer">PDF</td></tr>-->
+                                                <tr><td><b>Title</b></td><td id="b_title"></td></tr>
+                                                <tr><td><b>Bill Type</b></td><td id="b_type"></td></tr>
+                                                <tr><td><b>Sponsor</b></td><td id="b_sponsor"></td></tr>
+                                                <tr><td><b>Chamber</b></td><td id="b_chamber"></td></tr>
+                                                <tr><td><b>Status</b></td><td id="b_status"></td></tr>
+                                                <tr><td><b>Introduced On</b></td><td id="b_introducedon"></td></tr>
+                                                <tr><td><b>Congress URL</b></td><td id="b_congress"></td></tr>
+                                                <tr><td><b>Version Status</b></td><td id="b_version"></td></tr>
+                                                <tr><td><b>Bill URL</b></td><td id="b_billurl"></td></tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="col-xs-6" id="_bill_seg2">
+                                        <div id="b_pdfviewer">PDF</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Person details -->
+                        <div class="modal-content" id="l_details">
+                            <div class="modal-header">
+                                <button class="btn btn-secondary" value="<" onclick="GetLegData()"><b><</b></button>
+                                <h2 class="dinline">Detail</h2>
+                                <span class="floatright"><a href=""><img class="_imgd" id="_imgstarL" src="B.png" onclick="fav_l(event)" /></a></span>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-xs-6" id="Leg_1">
+                                        <table class="table table-responsive">
+                                            <tbody>
+                                                <tr>
+                                                <tr><td rowspan="6" id="l_r0"></td></tr>
+                                                <tr><td id="l_r1"></td></tr>
+                                                <tr><td id="l_r2"></td></tr>
+                                                <tr><td id="l_r3"></td></tr>
+                                                <tr><td id="l_r4"></td></tr>
+                                                <tr><td id="l_r5"></td></tr>
+                                                </tr>
+                                                <tr><td><b>Start Term</b></td><td id="l_c1"></td></tr>
+                                                <tr><td><b>End Term</b></td><td id="l_c2"></td></tr>
+                                                <tr><td><b>Term</b></td><td id="l_c3"></td></tr>
+                                                <tr><td><b>Office</b></td><td id="l_c4"></td></tr>
+                                                <tr><td><b>State</b></td><td id="l_c5"></td></tr>
+                                                <tr><td><b>Fax</b></td><td id="l_c6"></td></tr>
+                                                <tr><td><b>Birthday</b></td><td id="l_c7"></td></tr>
+                                                <tr><td><b>Social Links</b></td><td id="l_c8"></td></tr>
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+
+                                    <div class="col-xs-6" id="Leg_2">
+                                        <div>
+                                            <div><b>Committees</b></div>
+                                            <table class="table table-responsive">
+                                                <thead>
+                                                    <tr><th>Chamber</th><th>Chamber ID</th><th>Name</th></tr>
+                                                </thead>
+                                                <tbody id="pc_details"></tbody>
+                                            </table>
+                                        </div>
+
+                                        <div>
+                                            <div><b>Bills</b></div>
+
+                                            <table class="table table-responsive">
+                                                <thead>
+                                                    <tr><th>Bill ID</th><th>Title</th><th>Chamber</th><th>Bill Type</th><th>Congress</th><th>Link</th></tr>
+                                                </thead>
+                                                <tbody id="pb_details"></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>  
+</body>
+</html>
